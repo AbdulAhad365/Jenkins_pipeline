@@ -1,27 +1,34 @@
-pipeline{
-    agent any{
-        stages{
-            stage('clone code'){
-                steps{
-                    git 'https://github.com/AbdulAhad365/Jenkins_pipeline.git'
-                }
+pipeline {
+    agent any
 
+    tools {
+        nodejs 'node18'
+    }
+
+    stages {
+        stage('Clone code') {
+            steps {
+                git 'https://github.com/AbdulAhad365/Jenkins_pipeline.git'
             }
-            stage('Install dependency'){
-                steps{
-                    bat 'npm install'
-                }
+        }
+
+        stage('Install dependency') {
+            steps {
+                bat 'npm install'
             }
-            stage('build react app'){
-                steps{
-                    bat 'npm run build'
-                }
-            
+        }
+
+        stage('Build React app') {
+            steps {
+                bat 'npm run build'
             }
-            stage('deploy'){
-                steps{
-                    bat 'echo Deploying...'
-                }
+        }
+
+        stage('Deploy') {
+            steps {
+                bat 'echo Deploying...'
+                // Example: xcopy build folder to some server path
+                // bat 'xcopy /s /e /y build\\* C:\\path\\to\\deploy'
             }
         }
     }
